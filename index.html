@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Chemin Pour Style Page -->
+    <link rel="stylesheet" href="./CSS/style.css" />
+
+    <!-- Icon Barre Navigateur -->
+    <link rel="icon" href="./Assets/logos/icon-logo.png" />
+
+    <!-- Import Base de Donnée Icon -->
+    <!-- <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"
+      integrity="sha512-5A8nwdMOWrSz20fDsjczgUidUBR8liPYU+WymTZP1lmY9G6Oc7HlZv156XqnsgNUzTyMefFTcsFH/tnJE/+xBg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    > -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+      integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <!-- Référencement Google -->
+    <meta
+      name="title"
+      content="Omyfood - Réservez le menu qui vous convient !"
+    />
+    <meta
+      name="description"
+      content="Découvrez des restaurants d'exception, séléctionnés par nos soins."
+    />
+
+    <script defer src="./Scripts/_map.js" type="module"></script>
+
+    <title>Les Petits Plats</title>
+  </head>
+  <body>
+    <header>
+      <img src="./Assets/logos/banner-logo.png" alt="Logo les petits plats" />
+      <form action="#" method="GET" name="location-search">
+        <input
+          id="location"
+          type="text"
+          name="location"
+          placeholder="Rechercher une recette"
+          aria-label="Search"
+        />
+        <button type="submit" aria-label="search">
+          <i class="fas fa-search searchFiltersFilterWrapiconIcon"></i>
+        </button>
+      </form>
+    </header>
+    <main>
+      <section class="filter">
+        <div class="select"></div>
+
+        <div class="select_filter">
+          <div class="select_bloc ingredients">
+            <form action="#" method="GET" name="filter-search" data-value="Ingrédients">
+              <input
+                type="button"
+                placeholder="Rechercher un ingrédient"
+                value="Ingrédients"
+                name="Ingrédients"
+                class="input_filter"
+                data-value="Ingrédients"
+              />
+              <label for="sort-by-ingredients">
+                <svg
+                  width="16"
+                  height="11"
+                  viewBox="0 0 16 11"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="icon-svg"
+                >
+                  <path
+                    d="M14.12 0.453369L8 6.56004L1.88 0.453369L0 2.33337L8 10.3334L16 2.33337L14.12 0.453369Z"
+                    fill="white"
+                  ></path>
+                </svg>
+              </label>
+            </form>
+
+            <ul class="ingredients_ul"></ul>
+          </div>
+
+          <div class="select_bloc appareils">
+            <form action="#" method="GET" name="filter-search" data-value="Appareils" >
+              <input
+                type="button"
+                placeholder="Rechercher un appareils"
+                value="Appareils"
+                name="Appareils"
+                class="input_filter"
+                data-value="Appareils"
+              />
+              <label for="sort-by-ingredients">
+                <svg
+                  width="16"
+                  height="11"
+                  viewBox="0 0 16 11"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="icon-svg"
+                >
+                  <path
+                    d="M14.12 0.453369L8 6.56004L1.88 0.453369L0 2.33337L8 10.3334L16 2.33337L14.12 0.453369Z"
+                    fill="white"
+                  ></path>
+                </svg>
+              </label>
+            </form>
+            <ul class="appareils_ul"></ul>
+          </div>
+
+          <div class="select_bloc ustensils">
+            <form action="#" method="GET" name="filter-search" data-value="Ustensils">
+              <input
+                type="button"
+                placeholder="Rechercher un ustensils"
+                value="Ustensils"
+                name="Ustensils"
+                class="input_filter"
+                data-value="Ustensils"
+              />
+              <label for="sort-by-ingredients">
+                <svg
+                  width="16"
+                  height="11"
+                  viewBox="0 0 16 11"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="icon-svg"
+                >
+                  <path
+                    d="M14.12 0.453369L8 6.56004L1.88 0.453369L0 2.33337L8 10.3334L16 2.33337L14.12 0.453369Z"
+                    fill="white"
+                  ></path>
+                </svg>
+              </label>
+            </form>
+
+            <ul class="ustensils_ul"></ul>
+          </div>
+        </div>
+        <p></p>
+      </section>
+
+      <section class="framework"></section>
+    </main>
+  </body>
+</html>

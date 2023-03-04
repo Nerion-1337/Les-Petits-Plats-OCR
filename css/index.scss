@@ -1,0 +1,330 @@
+body {
+    padding: min(max(5px, 2vw), 42px) min(max(5px, 2.5vw), 100px);
+    @extend %center;
+    flex-direction: column;
+}
+
+header {
+    @extend %center;
+    flex-direction: column;
+    max-width: 1240px;
+    width: 100%;
+}
+
+header img {
+    max-height: 95px;
+    height: 25vw;
+    margin-bottom: min(max(5px, 2vw), 17px);
+}
+
+header form {
+    position: relative;
+    width: 100%;
+    height: 15vw;
+    max-height: 69px;
+    margin-bottom: min(max(5px, 2vw), 20px);
+}
+
+header form input {
+    height: 15vw;
+    max-height: 69px;
+    width: 100%;
+    background: $C2;
+    border: none;
+    padding-left: min(max(5px, 4vw), 24px);
+    border-radius: min(max(1px, 2vw), 5px);
+    font-size: min(max(10px, 5vw), 22px);
+}
+
+header form input::placeholder {
+    color: rgba($color: #000000, $alpha: 0.25);
+}
+
+header form button {
+    position: absolute;
+    right: min(max(1px, 1vw), 16px);
+    top: 50%;
+    background: transparent;
+    border: none;
+    font-size: min(max(5px, 8vw), 32px);
+    transform: translate(-50%, -50%);
+}
+
+main {
+    max-width: 1240px;
+    position: relative;
+}
+
+.filter {
+    position: absolute;
+    width: 100%;
+    z-index: 2;
+}
+
+.filter .select {
+    max-height: 60px;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    overflow: auto;
+    overflow-y: auto;
+    -ms-overflow-style: scrollbar;
+}
+
+.filter .select::-webkit-scrollbar {
+    display: scroll;
+    background-color: $C6;
+    border-radius: 100vmax;
+    margin-block: 5px;
+    width: 5px;
+    min-height: 3px;
+}
+
+.filter .select::-webkit-scrollbar-thumb {
+    background-color: $C5;
+    border-radius: 100vmax;
+}
+
+.filter .select span {
+    height: 37px;
+    padding: 0 22px 0 20px;
+    border-radius: 5px;
+    color: #ffffff;
+    margin-bottom: 15px;
+    @extend %center;
+
+}
+
+.filter .select span button{
+    color: #ffffff;
+    background: transparent;
+    border: none;
+    margin-left: 13px; 
+    cursor: pointer; 
+    @extend %center;
+}
+
+.filter .select_filter {
+    display: flex;
+    flex-direction: column;
+    gap: min(max(1px, 2vw), 20px);
+    margin-bottom: min(max(1px, 5vw), 82px);
+    @include min-tablette {
+        flex-direction: row;
+    }
+}
+
+.filter .select_bloc {
+    height: 15vw;
+    max-height: 69px;
+    width: 100%;
+    padding: 0 min(max(1px, 3vw), 18px) 0 min(max(1px, 3vw), 15px);
+    border-radius: min(max(1px, 2vw), 5px);
+    transition: 0.5s;
+    overflow: hidden;
+    color: $C1;
+    @include min-tablette {
+        max-width: 170px;
+        transition: 0.5s, max-height 0.5s;
+        transition-delay: 0.5s, 0s;
+    }
+}
+
+.filter .select_bloc.active {
+    max-height: 397px;
+    height: auto;
+    padding-bottom: 16px;
+    @include min-tablette {
+        max-width: 667px;
+        height: auto;
+        transition: 0.5s, max-height 0.5s;
+        transition-delay: 0s, 0.5s;
+    }
+}
+
+.filter .select_bloc form{
+    height: 15vw;
+    max-height: 69px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.filter .ingredients,
+.filter  .ingredients_li{
+    background: $C3;
+}
+.filter .appareils,
+.filter .appareils_li {
+    background: $C4;
+}
+.filter .ustensils,
+.filter .ustensils_li {
+    background: $C5;
+}
+
+.filter .select_bloc input {
+    height: 100%;
+    width: 80%;
+    display: flex;
+    align-items: center;
+    border: none;
+    background: transparent;
+    color: white;
+    font-size: min(max(10px, 5vw), 18px);
+}
+
+.filter .select_bloc input::placeholder {
+    color: rgba($color: #ffffff, $alpha: 0.5);
+    font-size: min(max(10px, 5vw), 18px);
+}
+.filter .select_bloc label {
+    transition: 0.5s;
+}
+.filter .select_bloc label.active {
+    transform: rotate(180deg);
+}
+
+.filter .select_filter .select_bloc ul {
+    @include grid(auto-fill, 3, 10px);
+    max-height: 318px;
+    font-size: min(max(1px, 4vw), 18px);
+    font-weight: 400;
+    overflow: auto;
+    overflow-y: auto;
+    -ms-overflow-style: scrollbar;
+
+}
+
+.filter .select_filter .select_bloc ul::-webkit-scrollbar {
+    position: absolute;
+    display: scroll;
+    background-color: $C6;
+    border-radius: 100vmax;
+    margin-block: 5px;
+    width: 5px;
+    min-height: 3px;
+}
+.filter .select_filter .select_bloc ul::-webkit-scrollbar-thumb {
+    background-color: white;
+    border-radius: 100vmax;
+}
+
+.filter .select_filter .select_bloc li {
+    cursor: pointer;
+}
+
+.framework {
+    @include grid(auto-fill, 1, 4vw);
+    margin-top: 54vw;
+    @include min-tablette {
+        @include grid(auto-fill, 2, 4vw);
+        margin-top: 171px;
+    }
+    @include min-desktop {
+        @include grid(auto-fill, 3, 50px);
+    }
+}
+
+.framework article {
+    height: min(max(10px, 90vw), 364px);
+    width: 100%;
+    border-radius: min(max(1px, 2vw), 5px);
+    overflow: hidden;
+    background: $C2;
+}
+
+.framework article figure img {
+    background: $C6;
+    height: min(max(10px, 40vw), 178px);
+    width: 100%;
+}
+
+.framework article figure figcaption {
+    padding: min(max(1px, 4vw), 20px);
+}
+
+.framework article figure figcaption .title {
+    position: relative;
+    height: min(max(10px, 5vw), 20px);
+}
+
+.framework article figure figcaption .title h2 {
+    font-size: min(max(10px, 5vw), 18px);
+    font-weight: 400;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    max-width: 70%;
+    &:hover {
+        position: absolute;
+        background: $C2;
+        top: 0;
+        left: 0;
+        white-space: normal;
+        z-index: 2;
+    }
+}
+
+.framework article figure figcaption .title p {
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    font-size: min(max(10px, 5vw), 18px);
+    font-weight: 700;
+}
+
+.framework article figure figcaption .title p svg {
+    margin-right: min(max(1px, 0.8vw), 7px);
+}
+
+.framework article figure figcaption .description {
+    display: flex;
+    justify-content: space-between;
+    margin-top: min(max(1px, 4vw), 20px);
+}
+
+.framework article figure figcaption .description ul {
+    font-size: min(max(8px, 3vw), 12px);
+    font-weight: 400;
+    width: 50%;
+    height: min(max(8px, 10vw), 70px);
+    line-height: 14px;
+    overflow: auto;
+    overflow-y: auto;
+    -ms-overflow-style: scrollbar;
+    margin-right: 10px;
+}
+
+.framework article figure figcaption .description ul::-webkit-scrollbar {
+    display: scroll;
+    background-color: $C6;
+    border-radius: 100vmax;
+    margin-block: 5px;
+    width: 5px;
+    min-height: 3px;
+}
+.framework article figure figcaption .description ul::-webkit-scrollbar-thumb {
+    background-color: $C5;
+    border-radius: 100vmax;
+}
+
+.framework article figure figcaption .description ul span {
+    font-weight: 900;
+    font-size: min(max(9px, 3.5vw), 12px);
+}
+
+.framework article figure figcaption .description p {
+    font-weight: 400;
+    font-size: min(max(9px, 3.5vw), 12px);
+    line-height: 14px;
+    width: 50%;
+    height: min(max(8px, 10vw), 70px);
+    display: -webkit-box;
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
