@@ -73,7 +73,6 @@ function ExecutSelect() {
   const span_ustensils = Array.from(
     document.querySelectorAll(".select .ustensils_li")
   ).map((span) => span.textContent.toLowerCase().trim());
-console.log(span_ingedients)
 
   //verifie pour chaque filter les recettes associé
   const search_ingredients = recipes.filter((recipe) => {
@@ -102,14 +101,4 @@ console.log(span_ingedients)
   localStorage.setItem("all_matches", JSON.stringify(all_matches));
 
   data_recipes.dataRecipes();
-
-  let query = JSON.parse(localStorage.getItem("query"));
-  let form = localStorage.getItem("form");
-  let data_value = JSON.parse(localStorage.getItem("data_value"));
-  const parser = new DOMParser();
-  const formDOM = parser.parseFromString(form, 'text/html').body.firstChild;
-  // console.log(formDOM)
-  // console.log("a")
-
-  search_filter.search(query, form, data_value);
 }
