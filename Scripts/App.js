@@ -5,28 +5,39 @@ import Article_Recipe from "./article_recipes.js";
 import List_Filter from "./list_filter.js";
 import * as select from "./select.js";
 
-const input_filter = document.querySelectorAll(".input_filter");
+
 const select_bloc = document.querySelectorAll(".select_bloc");
-const label = document.querySelectorAll("label");
 
 //Interaction avec balise filtre
 select_bloc.forEach((bloc) => {
-  bloc.addEventListener("mouseover", () => {
+  bloc.addEventListener("click", (e) => {
     const inputLabel = bloc.querySelector("label");
     const input = bloc.querySelector("input");
+
+    if (!bloc.classList.contains("active")) {
     input.type = "text";
     input.value = "";
     inputLabel.classList.add("active");
     bloc.classList.add("active");
+   const formUL = bloc.querySelector("ul");
+   const ulLI = formUL.querySelectorAll("li");
+    }
 
-    bloc.addEventListener("mouseout", () => {
+  document.addEventListener("click", (e) => {
+   //Permet d'identifier si le click est effectué en dehort de la balise selectionné  
+    if (!bloc.contains(e.target) && !e.target.classList.contains("noclose")) {
       input.value = input.getAttribute("data-value");
       input.type = "button";
       inputLabel.classList.remove("active");
       bloc.classList.remove("active");
+      localStorage.removeItem("data_value");
+      localStorage.removeItem("search_filter");
+    }
+  });
+      
     });
   });
-});
+
 
 
 const framework = document.querySelector(".framework");
@@ -73,5 +84,4 @@ export function trie(selector, data_recipes, data_value) {
     });
 
   }
-  select.blockSelect();
 }

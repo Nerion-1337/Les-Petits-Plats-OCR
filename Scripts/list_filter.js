@@ -5,7 +5,7 @@ class List_filter {
   
     createList_filter() {
       const li = document.createElement("li");
-    
+    li.setAttribute("class", "noclose")
 
   
       const li_filter = `
