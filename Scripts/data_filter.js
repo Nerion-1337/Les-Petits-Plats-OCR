@@ -24,7 +24,7 @@ class Filter {
         distinctValues.add(recipe[this.property].toLowerCase().trim());
       }
     });
-
+    //Permet d'effectuer la reseach dans les filtres
     if (this.property == data_value) {
       const filteredValues = Array.from(distinctValues).filter((value) =>
         value.includes(query)

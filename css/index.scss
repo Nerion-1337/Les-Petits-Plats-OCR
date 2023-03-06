@@ -216,6 +216,7 @@ main {
 }
 
 .framework {
+    position: relative;
     @include grid(auto-fill, 1, 4vw);
     margin-top: 54vw;
     @include min-tablette {
@@ -224,7 +225,16 @@ main {
     }
     @include min-desktop {
         @include grid(auto-fill, 3, 50px);
+        width: 1240px;
     }
+}
+
+.framework .error_research{
+    //position: absolute;
+    grid-column: 1/4;
+    text-align: center;
+    width: 100%;
+    font-size: min(max(10px, 5vw), 18px);
 }
 
 .framework article {
