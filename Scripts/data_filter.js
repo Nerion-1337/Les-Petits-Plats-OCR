@@ -6,7 +6,7 @@ class Filter {
 
   getDistinctValues() {
     let data_value = JSON.parse(localStorage.getItem("data_value"));
-    let search_recipes = JSON.parse(localStorage.getItem("search_recipes"));
+    let query = JSON.parse(localStorage.getItem("query"));
     //Set est un object qui va permettre d'éviter les doublons
     const distinctValues = new Set();
     this.recipes.forEach((recipe) => {
@@ -22,17 +22,17 @@ class Filter {
         //si ce n'est pas un tableau comme appliance
       } else {
         distinctValues.add(recipe[this.property].toLowerCase().trim());
-
       }
     });
-
-if(this.property == data_value){
-  console.log("a")
-  return Array.from(distinctValues);
-}else{
-  return Array.from(distinctValues);
-}
-    
+    //Permet d'effectuer la reseach dans les filtres
+    if (this.property == data_value) {
+      const filteredValues = Array.from(distinctValues).filter((value) =>
+        value.includes(query)
+      );
+      return filteredValues;
+    } else {
+      return Array.from(distinctValues);
+    }
   }
 }
 

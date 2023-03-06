@@ -1,12 +1,5 @@
 import { recipes } from "../Data/recipes.js";
 import * as data_recipes from "./data_recipes.js";
-import data_filter from "./data_filter.js";
-import Article_Recipe from "./article_recipes.js";
-import List_Filter from "./list_filter.js";
-import * as select from "./select.js";
-import * as App from "./App.js";
-import * as search_recipes from "./search_recipes.js";
-import * as search_filter from "./search_filter.js";
 
 //Création des filtres au click
 export function blockSelect() {
@@ -19,17 +12,19 @@ export function blockSelect() {
       const selectedFilter = li.textContent.trim();
       const ElementFilter = document.createElement("span");
 
-    // Vérifie si un élément similaire existe déjà
-    const existingElement = Array.from(select.querySelectorAll("span")).some((span) => span.textContent.trim() === selectedFilter);
-    if (existingElement) {
-      return;
-    }
-
+      // Vérifie si un élément similaire existe déjà
+      const existingElement = Array.from(select.querySelectorAll("span")).some(
+        (span) => span.textContent.trim() === selectedFilter
+      );
+      if (existingElement) {
+        return;
+      }
+//ajoute une class pour le tag en fonction du filtre
       if (parentClass == "ingredients_ul") {
         const ClassBlue = "ingredients_li noclose";
         ElementFilter.setAttribute("class", ClassBlue);
-      } else if (parentClass == "appareils_ul noclose") {
-        const ClassVert = "appareils_li";
+      } else if (parentClass == "appareils_ul") {
+        const ClassVert = "appareils_li noclose";
         ElementFilter.setAttribute("class", ClassVert);
       } else {
         const ClassOrange = "ustensils_li noclose";
@@ -62,7 +57,6 @@ export function blockSelect() {
 }
 
 function ExecutSelect() {
-
   //récupère le tag et recherche dans recipes quel recette correspond
   const span_ingedients = Array.from(
     document.querySelectorAll(".select .ingredients_li")
@@ -73,7 +67,6 @@ function ExecutSelect() {
   const span_ustensils = Array.from(
     document.querySelectorAll(".select .ustensils_li")
   ).map((span) => span.textContent.toLowerCase().trim());
-console.log(span_ingedients)
 
   //verifie pour chaque filter les recettes associé
   const search_ingredients = recipes.filter((recipe) => {
@@ -102,14 +95,4 @@ console.log(span_ingedients)
   localStorage.setItem("all_matches", JSON.stringify(all_matches));
 
   data_recipes.dataRecipes();
-
-  let query = JSON.parse(localStorage.getItem("query"));
-  let form = localStorage.getItem("form");
-  let data_value = JSON.parse(localStorage.getItem("data_value"));
-  const parser = new DOMParser();
-  const formDOM = parser.parseFromString(form, 'text/html').body.firstChild;
-  // console.log(formDOM)
-  // console.log("a")
-
-  search_filter.search(query, form, data_value);
 }

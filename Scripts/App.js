@@ -1,10 +1,6 @@
-import { recipes } from "../Data/recipes.js";
-import * as data_recipes from "./data_recipes.js";
 import data_filter from "./data_filter.js";
 import Article_Recipe from "./article_recipes.js";
 import List_Filter from "./list_filter.js";
-import * as select from "./select.js";
-
 
 const select_bloc = document.querySelectorAll(".select_bloc");
 
@@ -13,32 +9,29 @@ select_bloc.forEach((bloc) => {
   bloc.addEventListener("click", (e) => {
     const inputLabel = bloc.querySelector("label");
     const input = bloc.querySelector("input");
-
+    //Permet d'éviter de réactualiser le form à chaque click dans le bloc
     if (!bloc.classList.contains("active")) {
-    input.type = "text";
-    input.value = "";
-    inputLabel.classList.add("active");
-    bloc.classList.add("active");
-   const formUL = bloc.querySelector("ul");
-   const ulLI = formUL.querySelectorAll("li");
+      input.type = "text";
+      input.value = "";
+      inputLabel.classList.add("active");
+      bloc.classList.add("active");
+      const formUL = bloc.querySelector("ul");
+      const ulLI = formUL.querySelectorAll("li");
     }
 
-  document.addEventListener("click", (e) => {
-   //Permet d'identifier si le click est effectué en dehort de la balise selectionné  
-    if (!bloc.contains(e.target) && !e.target.classList.contains("noclose")) {
-      input.value = input.getAttribute("data-value");
-      input.type = "button";
-      inputLabel.classList.remove("active");
-      bloc.classList.remove("active");
-      localStorage.removeItem("data_value");
-      localStorage.removeItem("search_filter");
-    }
-  });
-      
+    document.addEventListener("click", (e) => {
+      //Permet d'identifier si le click est effectué en dehort du bloc selectionné
+      if (!bloc.contains(e.target) && !e.target.classList.contains("noclose")) {
+        input.value = input.getAttribute("data-value");
+        input.type = "button";
+        inputLabel.classList.remove("active");
+        bloc.classList.remove("active");
+        localStorage.removeItem("data_value");
+        localStorage.removeItem("search_filter");
+      }
     });
   });
-
-
+});
 
 const framework = document.querySelector(".framework");
 
@@ -50,15 +43,12 @@ export function main(data_recipes) {
   });
 }
 
-
 //Permet d'afficher les filtres par catégorie
-export function trie(selector, data_recipes, data_value) {
+export function trie(selector, data_recipes) {
   const ingredients = document.querySelector(".ingredients_ul");
   const appliance = document.querySelector(".appareils_ul");
   const ustensils = document.querySelector(".ustensils_ul");
 
-
-  if (data_value == null) {
   const Data = new data_filter(data_recipes, selector);
   const dataFilter = Data.getDistinctValues();
   dataFilter.forEach((filter) => {
@@ -71,17 +61,4 @@ export function trie(selector, data_recipes, data_value) {
       ustensils.appendChild(Template.createList_filter());
     }
   });
-  } else{
-    data_recipes.forEach((filter) => {
-      const Template = new List_Filter(filter);
-      if (selector == "ingredients") {
-        ingredients.appendChild(Template.createList_filter());
-      } else if (selector == "appliance") {
-        appliance.appendChild(Template.createList_filter());
-      } else {
-        ustensils.appendChild(Template.createList_filter());
-      }
-    });
-
-  }
 }
