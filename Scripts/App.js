@@ -1,6 +1,7 @@
 import data_filter from "./data_filter.js";
 import Article_Recipe from "./article_recipes.js";
 import List_Filter from "./list_filter.js";
+import * as data_recipes from "./data_recipes.js";
 
 const select_bloc = document.querySelectorAll(".select_bloc");
 
@@ -27,7 +28,7 @@ select_bloc.forEach((bloc) => {
         inputLabel.classList.remove("active");
         bloc.classList.remove("active");
         localStorage.removeItem("data_value");
-        localStorage.removeItem("search_filter");
+        data_recipes.dataRecipes();
       }
     });
   });
