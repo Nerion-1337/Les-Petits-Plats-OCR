@@ -1,3 +1,4 @@
+import { recipes } from "../Data/recipes.js";
 import data_filter from "./data_filter.js";
 import Article_Recipe from "./article_recipes.js";
 import List_Filter from "./list_filter.js";
@@ -28,6 +29,7 @@ select_bloc.forEach((bloc) => {
         inputLabel.classList.remove("active");
         bloc.classList.remove("active");
         localStorage.removeItem("data_value");
+        localStorage.setItem("search_recipes", JSON.stringify(recipes));
         data_recipes.dataRecipes();
       }
     });
