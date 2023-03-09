@@ -24,14 +24,25 @@ class Filter {
         distinctValues.add(recipe[this.property].toLowerCase().trim());
       }
     });
-    //Permet d'effectuer la reseach dans les filtres
+
+    // Créer un nouveau Set qui supprime les éléments avec un "s" à la fin
+    const filteredValues = new Set(
+      Array.from(distinctValues).filter((value) => {
+        if (value.endsWith("s")) {
+          const singularValue = value.slice(0, -1);
+          return !distinctValues.has(singularValue);
+        } else {
+          return true;
+        }
+      })
+    );
+
     if (this.property == data_value) {
-      const filteredValues = Array.from(distinctValues).filter((value) =>
+      return Array.from(filteredValues).filter((value) =>
         value.includes(query)
       );
-      return filteredValues;
     } else {
-      return Array.from(distinctValues);
+      return Array.from(filteredValues);
     }
   }
 }
