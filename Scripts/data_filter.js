@@ -7,43 +7,53 @@ class Filter {
   getDistinctValues() {
     let data_value = JSON.parse(localStorage.getItem("data_value"));
     let query = JSON.parse(localStorage.getItem("query"));
-    //Set est un object qui va permettre d'éviter les doublons
     const distinctValues = new Set();
-    this.recipes.forEach((recipe) => {
-      //vérifier si c'est un tableau pour ingredient & ustensil
+
+    for (let i = 0; i < this.recipes.length; i++) {
+      const recipe = this.recipes[i];
+
       if (Array.isArray(recipe[this.property])) {
-        recipe[this.property].forEach((value) => {
+        for (let j = 0; j < recipe[this.property].length; j++) {
+          const value = recipe[this.property][j];
+
           if (value.hasOwnProperty("ingredient")) {
-            distinctValues.add(value.ingredient.toLowerCase().trim());
+            const ingredient = value.ingredient.toLowerCase().trim();
+            distinctValues.add(ingredient);
           } else {
-            distinctValues.add(value.toLowerCase().trim());
+            const ustensil = value.toLowerCase().trim();
+            distinctValues.add(ustensil);
           }
-        });
-        //si ce n'est pas un tableau comme appliance
-      } else {
-        distinctValues.add(recipe[this.property].toLowerCase().trim());
-      }
-    });
-
-    // Créer un nouveau Set qui supprime les éléments avec un "s" à la fin
-    const filteredValues = new Set(
-      Array.from(distinctValues).filter((value) => {
-        if (value.endsWith("s")) {
-          const singularValue = value.slice(0, -1);
-          return !distinctValues.has(singularValue);
-        } else {
-          return true;
         }
-      })
-    );
-
-    if (this.property == data_value) {
-      return Array.from(filteredValues).filter((value) =>
-        value.includes(query)
-      );
-    } else {
-      return Array.from(filteredValues);
+      } else {
+        const appliance = recipe[this.property].toLowerCase().trim();
+        distinctValues.add(appliance);
+      }
     }
+
+    // Créer un nouvel ensemble qui stocke les valeurs qui ont un "s" à la fin et qui ont une forme singulière correspondante (en enlevant le "s")
+    const singularValues = new Set();
+    for (let value of distinctValues) {
+      if (value.endsWith("s")) {
+        const singularValue = value.slice(0, -1);
+        singularValues.add(singularValue);
+      }
+    }
+
+    // Créer un nouvel ensemble qui stocke les valeurs filtrées
+    const filteredValues = new Set();
+    for (let value of distinctValues) {
+      if (singularValues.has(value.slice(0, -1))) {
+        continue; // Si la forme singulière est présente dans singularValues, ne pas ajouter la valeur à filteredValues
+      }
+
+      if (this.property === data_value && !value.includes(query)) {
+        continue; // Si la valeur ne contient pas la chaîne de recherche, ne pas l'ajouter à filteredValues
+      }
+
+      filteredValues.add(value);
+    }
+
+    return Array.from(filteredValues);
   }
 }
 

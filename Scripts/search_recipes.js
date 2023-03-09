@@ -3,19 +3,74 @@ import * as data_recipes from "./data_recipes.js";
 import * as fail from "./fail.js";
 
 function search(query) {
-  const search_recipes = recipes.filter((recipe) => {
+  const search_recipes = [];
+  for (let i = 0; i < recipes.length; i++) {
     //recherche en fonction du nom
-    const nameMatch = recipe.name.toLowerCase().includes(query.toLowerCase());
+    let nameMatch = false;
+    const recipeName = recipes[i].name.toLowerCase();
+    const queryLowerCase = query.toLowerCase();
+    for (let j = 0; j < recipeName.length; j++) {
+      let k = j;
+      let l = 0;
+      while (recipeName[k] === queryLowerCase[l] && l < queryLowerCase.length) {
+        k++;
+        l++;
+      }
+      if (l === queryLowerCase.length) {
+        nameMatch = true;
+        break;
+      }
+    }
+
     //recherche en fonction de la description
-    const descriptionMatch = recipe.description
-      .toLowerCase()
-      .includes(query.toLowerCase());
+    let descriptionMatch = false;
+    const recipeDescription = recipes[i].description.toLowerCase();
+    for (let j = 0; j < recipeDescription.length; j++) {
+      let k = j;
+      let l = 0;
+      while (
+        recipeDescription[k] === queryLowerCase[l] &&
+        l < queryLowerCase.length
+      ) {
+        k++;
+        l++;
+      }
+      if (l === queryLowerCase.length) {
+        descriptionMatch = true;
+        break;
+      }
+    }
+
     //recherche en fonction des ingredients
-    const ingredientMatch = recipe.ingredients.some((ingredient) =>
-      ingredient.ingredient.toLowerCase().includes(query.toLowerCase())
-    );
-    return nameMatch || descriptionMatch || ingredientMatch;
-  });
+    let ingredientMatch = false;
+    const recipeIngredients = recipes[i].ingredients;
+    for (let j = 0; j < recipeIngredients.length; j++) {
+      const ingredient = recipeIngredients[j].ingredient.toLowerCase();
+      for (let k = 0; k < ingredient.length; k++) {
+        let l = k;
+        let m = 0;
+        while (
+          ingredient[l] === queryLowerCase[m] &&
+          m < queryLowerCase.length
+        ) {
+          l++;
+          m++;
+        }
+        if (m === queryLowerCase.length) {
+          ingredientMatch = true;
+          break;
+        }
+      }
+      if (ingredientMatch) {
+        break;
+      }
+    }
+
+    if (nameMatch || descriptionMatch || ingredientMatch) {
+      search_recipes.push(recipes[i]);
+    }
+  }
+
   // si la recherche n'existe pas dans les recettes afficher message erreur
   if (search_recipes.length === 0) {
     fail.failResearch();

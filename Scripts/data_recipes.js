@@ -17,11 +17,18 @@ export function dataRecipes() {
   } else if (all_matches == null && search_recipes != null) {
     data_recipes = search_recipes;
   } else if (all_matches != null && search_recipes != null) {
-    const result_recipes = all_matches.filter((all_matches) =>
-      search_recipes.some(
-        (search_recipes) => all_matches.id == search_recipes.id
-      )
-    );
+    const result_recipes = [];
+    for (let i = 0; i < all_matches.length; i++) {
+      const all_match = all_matches[i];
+      for (let j = 0; j < search_recipes.length; j++) {
+        const search_recipe = search_recipes[j];
+        if (all_match.id === search_recipe.id) {
+          result_recipes.push(all_match);
+          break;
+        }
+      }
+    }
+
     if (result_recipes.length === 0) {
       fail.failResearch();
       return;
