@@ -7,7 +7,7 @@ import * as data_recipes from "./data_recipes.js";
 const select_bloc = document.querySelectorAll(".select_bloc");
 
 //Interaction avec balise filtre
-select_bloc.forEach((bloc) => {
+for(const bloc of select_bloc){
   bloc.addEventListener("click", (e) => {
     const inputLabel = bloc.querySelector("label");
     const input = bloc.querySelector("input");
@@ -29,21 +29,21 @@ select_bloc.forEach((bloc) => {
         inputLabel.classList.remove("active");
         bloc.classList.remove("active");
         localStorage.removeItem("data_value");
-        localStorage.setItem("search_recipes", JSON.stringify(recipes));
+        localStorage.removeItem("query");
         data_recipes.dataRecipes();
       }
     });
   });
-});
+};
 
 const framework = document.querySelector(".framework");
 
 //Permet d'afficher les articles
 export function main(data_recipes) {
-  data_recipes.forEach((recipe) => {
+  for (const recipe of data_recipes) {
     const Template = new Article_Recipe(recipe);
     framework.appendChild(Template.createArticle_Recipe());
-  });
+  }
 }
 
 //Permet d'afficher les filtres par catégorie
@@ -54,7 +54,7 @@ export function trie(selector, data_recipes) {
 
   const Data = new data_filter(data_recipes, selector);
   const dataFilter = Data.getDistinctValues();
-  dataFilter.forEach((filter) => {
+  for(const filter of dataFilter){
     const Template = new List_Filter(filter);
     if (selector == "ingredients") {
       ingredients.appendChild(Template.createList_filter());
@@ -63,5 +63,5 @@ export function trie(selector, data_recipes) {
     } else {
       ustensils.appendChild(Template.createList_filter());
     }
-  });
+  };
 }

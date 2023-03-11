@@ -94,14 +94,28 @@ function ExecutSelect() {
       let found = false;
       for (let k = 0; k < ingredient.length; k++) {
         const ing = ingredient[k].ingredient.toLowerCase().trim();
-        if (ing.includes(s)) {
+        let match = true;
+        for (let l = 0; l < s.length; l++) {
+          if (ing[k + l] !== s[l]) {
+            match = false;
+            break;
+          }
+        }
+        if (match) {
           found = true;
           break;
         }
       }
       ingredientMatch.push(found);
     }
-    if (ingredientMatch.every(Boolean)) {
+    let allTrue = true;
+    for (let m = 0; m < ingredientMatch.length; m++) {
+      if (!ingredientMatch[m]) {
+        allTrue = false;
+        break;
+      }
+    }
+    if (allTrue) {
       search_ingredients.push(recipe);
     }
   }
@@ -113,13 +127,25 @@ function ExecutSelect() {
     for (let j = 0; j < span_appareils.length; j++) {
       const s = span_appareils[j];
       const appliance = recipe.appliance.toLowerCase().trim();
-      if (appliance.includes(s)) {
-        applianceMatch.push(true);
-      } else {
-        applianceMatch.push(false);
+      let found = false;
+      for (let k = 0; k < appliance.length; k++) {
+        if (appliance.substring(k, k + s.length).toLowerCase() === s) {
+          found = true;
+          break;
+        }
+      }
+      applianceMatch.push(found);
+    }
+  
+    let allApplianceMatched = true;
+    for (let j = 0; j < applianceMatch.length; j++) {
+      if (!applianceMatch[j]) {
+        allApplianceMatched = false;
+        break;
       }
     }
-    if (applianceMatch.every(Boolean)) {
+  
+    if (allApplianceMatched) {
       temp_matches.push(recipe);
     }
   }
@@ -128,20 +154,32 @@ function ExecutSelect() {
   for (let i = 0; i < temp_matches.length; i++) {
     const recipe = temp_matches[i];
     const ustensilsMatch = [];
+    let allMatch = true;
     for (let j = 0; j < span_ustensils.length; j++) {
       const s = span_ustensils[j];
       const ustensils = recipe.ustensils;
       let found = false;
       for (let k = 0; k < ustensils.length; k++) {
         const ut = ustensils[k].toLowerCase().trim();
-        if (ut.includes(s)) {
-          found = true;
+        for (let l = 0; l < ut.length - s.length + 1; l++) {
+          if (ut.slice(l, l + s.length) === s) {
+            found = true;
+            break;
+          }
+        }
+        if (found) {
           break;
         }
       }
       ustensilsMatch.push(found);
     }
-    if (ustensilsMatch.every(Boolean)) {
+    for (let k = 0; k < ustensilsMatch.length; k++) {
+      if (!ustensilsMatch[k]) {
+        allMatch = false;
+        break;
+      }
+    }
+    if (allMatch) {
       all_matches.push(recipe);
     }
   }

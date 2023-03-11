@@ -11,7 +11,7 @@ class Article_Recipe {
  
 
     // Parcourir le tableau de recettes
-    this.recipe.ingredients.forEach((ingredient) => {
+    for(const ingredient of this.recipe.ingredients){
         // Vérifier si l'ingrédient est déjà présent dans le tableau unique
         const existingIngredient = uniqueIngredients.find(
           (item) => item.ingredient === ingredient.ingredient
@@ -32,18 +32,18 @@ class Article_Recipe {
             unit: ingredient.unit || "",
           });
         }
-      });
+      };
 
 
     // Créer la liste HTML des ingrédients uniques
-    uniqueIngredients.forEach((ingredient) => {
+    for(const ingredient of uniqueIngredients){
       const li = document.createElement("li");
       const span = document.createElement("span");
       span.textContent = `${ingredient.ingredient}: `;
       li.textContent = `${ingredient.quantity} ${ingredient.unit}`;
       li.insertBefore(span, li.firstChild);
       ul.appendChild(li);
-    });
+    };
 
     const article_recipe = `
         <figure>
