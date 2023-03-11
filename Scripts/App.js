@@ -29,7 +29,7 @@ select_bloc.forEach((bloc) => {
         inputLabel.classList.remove("active");
         bloc.classList.remove("active");
         localStorage.removeItem("data_value");
-        localStorage.setItem("search_recipes", JSON.stringify(recipes));
+        localStorage.removeItem("query");
         data_recipes.dataRecipes();
       }
     });
