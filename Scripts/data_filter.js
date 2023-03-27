@@ -31,29 +31,30 @@ class Filter {
     }
 
     // Créer un nouvel ensemble qui stocke les valeurs qui ont un "s" à la fin et qui ont une forme singulière correspondante (en enlevant le "s")
-    const singularValues = new Set();
+    const filteredValues = new Set();
+
     for (let value of distinctValues) {
       if (value.endsWith("s")) {
         const singularValue = value.slice(0, -1);
-        singularValues.add(singularValue);
+        if (!distinctValues.has(singularValue)) {
+          filteredValues.add(value);
+        }
+      } else {
+        filteredValues.add(value);
       }
+    }  
+
+    if (this.property == data_value) {
+      const matchingValues = [];
+      for (let value of filteredValues) {
+        if (value.includes(query)) {
+          matchingValues.push(value);
+        }
+      }
+      return matchingValues;
+    } else {
+      return Array.from(filteredValues);
     }
-
-    // Créer un nouvel ensemble qui stocke les valeurs filtrées
-    const filteredValues = new Set();
-    for (let value of distinctValues) {
-      if (singularValues.has(value.slice(0, -1))) {
-        continue; // Si la forme singulière est présente dans singularValues, ne pas ajouter la valeur à filteredValues
-      }
-
-      if (this.property === data_value && !value.includes(query)) {
-        continue; // Si la valeur ne contient pas la chaîne de recherche, ne pas l'ajouter à filteredValues
-      }
-
-      filteredValues.add(value);
-    }
-
-    return Array.from(filteredValues);
   }
 }
 
