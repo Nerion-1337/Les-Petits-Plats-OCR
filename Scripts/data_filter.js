@@ -30,7 +30,7 @@ class Filter {
       }
     }
 
-    // Créer un nouvel ensemble qui stocke les valeurs qui ont un "s" à la fin et qui ont une forme singulière correspondante (en enlevant le "s")
+     // Créer un nouveau Set qui supprime les éléments avec un "s" à la fin
     const filteredValues = new Set();
 
     for (let value of distinctValues) {
