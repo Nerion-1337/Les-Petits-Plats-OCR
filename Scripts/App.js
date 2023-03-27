@@ -29,7 +29,6 @@ select_bloc.forEach((bloc) => {
         inputLabel.classList.remove("active");
         bloc.classList.remove("active");
         localStorage.removeItem("data_value");
-        localStorage.removeItem("query");
         data_recipes.dataRecipes();
       }
     });
