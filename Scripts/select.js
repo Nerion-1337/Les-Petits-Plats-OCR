@@ -84,41 +84,45 @@ function ExecutSelect() {
   }
 
   //verifie pour chaque filter les recettes associé
-  const search_ingredients = [];
+ const search_ingredients = [];
+ 
+ if (span_ingedients.length === 0) {
+  search_ingredients.push(...recipes);
+} else {
   for (let i = 0; i < recipes.length; i++) {
     const recipe = recipes[i];
     const ingredientMatch = [];
+    let found = false;
+    
     for (let j = 0; j < span_ingedients.length; j++) {
       const s = span_ingedients[j];
-      const ingredient = recipe.ingredients;
-      let found = false;
-      for (let k = 0; k < ingredient.length; k++) {
-        const ing = ingredient[k].ingredient.toLowerCase().trim();
-        let match = true;
-        for (let l = 0; l < s.length; l++) {
-          if (ing[k + l] !== s[l]) {
-            match = false;
-            break;
-          }
-        }
-        if (match) {
-          found = true;
+      const ingredients = recipe.ingredients;
+      let match = false;
+  
+      for (let k = 0; k < ingredients.length; k++) {
+        const ing = ingredients[k].ingredient.toLowerCase().trim();
+        let subIng = ing.slice(0, s.length);
+  
+        if (subIng === s) {
+          match = true;
           break;
         }
       }
-      ingredientMatch.push(found);
-    }
-    let allTrue = true;
-    for (let m = 0; m < ingredientMatch.length; m++) {
-      if (!ingredientMatch[m]) {
-        allTrue = false;
+  
+      if (!match) {
+        found = false;
         break;
+      } else {
+        found = true;
       }
+      ingredientMatch.push(match);
     }
-    if (allTrue) {
+  
+    if (found) {
       search_ingredients.push(recipe);
     }
   }
+}
 
   const temp_matches = [];
   for (let i = 0; i < search_ingredients.length; i++) {
