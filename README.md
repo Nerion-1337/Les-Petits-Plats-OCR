@@ -21,7 +21,7 @@ Effectuer une recherche séparément sur l'ensemble des données puis comparer l
 
 # Maquette
 
-[Canevas](https://www.figma.com/file/xqeE1ZKlHUWi2Efo8r73NK)
+[Figma](https://www.figma.com/file/xqeE1ZKlHUWi2Efo8r73NK)
 
 # Visiter
 
